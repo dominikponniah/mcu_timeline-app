@@ -1,0 +1,32 @@
+{
+   "TIMELINE": {
+    "title": "Chronologie"
+    },
+    "DETAILS": {
+        "directed": "RÉALISATION",
+        "duration": "DURÉE",
+        "episodes": "ÉPISODES",
+        "release": "PUBLICATION",
+        "year_it_played": "JOUE"
+    },
+    "EXTRAS": {
+        "title": "Plus",
+        "language": "Langue",
+        "PICKER": {
+            "title": "Choisissez votre langue",
+            "cancel": "Annuler"
+        },
+        "LINKS": {
+            "disneyplus": "Marvel sur Disney+",
+            "instagram": "Marvel sur Instagram"
+        }, 
+        "ACTION": {
+            "delete": "Efface mes données  "
+        }
+
+    },
+    "TABS": {
+        "timeline": "Chronologie",
+        "extras": "Plus"
+    }
+}

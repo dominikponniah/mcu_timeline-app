@@ -1,0 +1,67 @@
+<ion-content>
+  <div class="details">
+    <img class="icon" [src]="mediaItem.cover_url"/>
+    <h1>{{mediaItem.title}}</h1>
+
+
+  <ion-card> 
+    <ion-card-header>
+      <ion-card-subtitle>
+        {{'DETAILS.directed' | translate}}
+      </ion-card-subtitle>
+    </ion-card-header>
+
+      <ion-card-content>
+        {{mediaItem.directed_by}}
+      </ion-card-content>
+
+      <ion-card-header>
+        <ion-card-subtitle *ngIf="mediaItem.episodes_to_watch !== '0'; else durationTitle">
+          {{'DETAILS.episodes' | translate}}
+        </ion-card-subtitle>
+        <ng-template #durationTitle>
+          {{'DETAILS.duration' | translate}}
+        </ng-template>
+      </ion-card-header>
+
+      <ion-card-content>
+
+          <p *ngIf="mediaItem.episodes_to_watch !== '0'; else durationValue">
+            {{mediaItem.episodes_to_watch}}
+          </p>
+          <ng-template #durationValue>
+           {{mediaItem.duration}} Minutes
+         </ng-template>
+         </ion-card-content>
+         <ion-card-content>
+
+           <b>
+             {{'DETAILS.release' | translate}}
+            </b>
+             {{mediaItem.release_date}} |  
+             <b>
+             {{'DETAILS.year_it_played' | translate}}
+            </b>
+            {{mediaItem.year_it_played}}
+          </ion-card-content>
+         
+        
+</ion-card>
+ <ion-card>
+
+
+
+
+      
+   
+      <ion-card-content>
+        {{mediaItem.overview}}
+      </ion-card-content>
+      </ion-card>
+   
+
+
+        <iframe *ngIf="isYouTube" id="trailerBox" height="315" [src]="videoURL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+</ion-content>
