@@ -13,8 +13,10 @@ export class AppComponent {
     private languageService: LanguageService) {
 
       if(this.languageService.getCurrentLanguage() === null) {
-        translate.setDefaultLang(this.languageService.findLanguage(navigator.language))
+        //set standard language from the browser
+        translate.setDefaultLang(this.languageService.findLanguage(navigator.language)) 
       } else {
-        translate.setDefaultLang(this.languageService.getCurrentLanguage());
+        //set standard language from the app
+        translate.setDefaultLang(this.languageService.getCurrentLanguage()); 
       }
 }}

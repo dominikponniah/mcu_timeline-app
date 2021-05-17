@@ -1,95 +1,112 @@
-import { Component } from '@angular/core';
+import { LanguageService } from './../shared/language.service';
+import { MediaItem } from './../interfaces/media-item';
+import { EpisodeItem } from './../interfaces/episode-item';
+import { DataService } from './../shared/data.service';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailsPage } from '../details/details.page';
-import { MediaItem } from '../interfaces/media-item';
+import { isTabSwitch } from '@ionic/angular/directives/navigation/stack-utils';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  styleUrls: ['tab1.page.scss'],
 })
-export class Tab1Page {
-
-  mediaItems: MediaItem[] = [
-    {
-      "id": "1",
-      "title": "Captain America: The First Avenger",
-      "release_date": "27.07.2011",
-      "duration": 124,
-      "overview": "Marvel's 'Captain America: The First Avenger' focuses on the early days of the Marvel Universe when Steve Rogers volunteers to participate in an experimental program that turns him into the Super Soldier known as Captain America.",
-      "cover_url": "https://raw.githubusercontent.com/svenia/mcu-viewing-order-data/main/covers/captain-america-the-first-avenger.jpg",
-      "trailer_url": "https://www.youtube.com/embed/JerVrbLldXw",
-      "directed_by": "Joe Johnston",
-      "phase": 1,
-      "chronology": 1,
-      "post_credit_scenes": 1,
-      "episodes_to_watch": "0",
-      "year_it_played": "1943-1945"
-    },
-    {
-      "id": "1000",
-      "title": "Marvel's Agent Carter",
-      "release_date": "06.01.2015",
-      "duration": null,
-      "overview": "Agent Peggy Carter has lost the love of her life. To make things worse, when billionaire Howard Stark is accused of treason, he secretly hires her to clear his name. With the help of Stark's butler, she goes on a bizarre journey of cheating, murder and controversy.",
-      "cover_url": "https://raw.githubusercontent.com/svenia/mcu-viewing-order-data/main/covers/Carter.png",
-      "trailer_url": "https://www.youtube.com/embed/qPiMNPlbijw",
-      "directed_by": "James Chory, Lawrence Trilling, Peter Leto, Scott Winant, Vincent Misiano, Chris Peppe, Ken Marino",
-      "phase": 2,
-      "chronology": 3,
-      "post_credit_scenes": 0,
-      "episodes_to_watch": "S01E01 - S01E08",
-      "episodes": 
-      [
-        {
-         "id": "1000_01",
-         "title": "S01E01"
-        },
-        {
-          "id": "1000_02",
-          "title": "S01E02"
-         },
-         {
-          "id": "1000_03",
-          "title": "S01E03"
-         },
-         {
-          "id": "1000_04",
-          "title": "S01E04"
-         },
-         {
-          "id": "1000_05",
-          "title": "S01E05"
-         },
-         {
-          "id": "1000_06",
-          "title": "S01E06"
-         },
-         {
-          "id": "1000_07",
-          "title": "S01E07"
-         },
-         {
-          "id": "1000_08",
-          "title": "S01E08"
-         }
-      ],
-      "year_it_played": "1946"
-    },]
+export class Tab1Page implements OnInit {
+  mediaItems: MediaItem[];
+  watchedMediaItems: any[] = [];
+  filterItem;
 
   constructor(
-    private modalController: ModalController
+    private modalController: ModalController,
+    private dataService: DataService,
+    private languageService: LanguageService
   ) {}
 
-async showDetails(i) {
-  const modal = await this.modalController.create({
-      component: DetailsPage, 
-      componentProps: {
-        mediaItem: this.mediaItems[i]
-      }
-    }); 
-    return await modal.present();
+  ngOnInit() {
+    this.startDataProcessing();
+  }
 
+  startDataProcessing() {
+    // Checks if there are any MediaItems watched Already
+    if (localStorage.getItem('watchedMediaItems') !== null) {
+      // Store them if true in a local Variable
+      this.watchedMediaItems = JSON.parse(
+        localStorage.getItem('watchedMediaItems')
+      );
+    }
+
+    // Get data from GitHub in the Current Language and setting this in the local Variable.
+    this.dataService
+      .getMediaItem(this.languageService.getCurrentLanguage())
+      .subscribe((data: MediaItem[]) => {
+        this.mediaItems = data;
+
+        // Processing the Data to display it correctly.
+        this.processMediaItems();
+      });
+  }
+
+  // Marking item as watched or unwatched and storing changes in localStroage
+  markItem(id, index) {
+    this.mediaItems[index].isWatched = !this.mediaItems[index].isWatched;
+
+    if (this.watchedMediaItems.includes(id)) {
+      this.watchedMediaItems = this.watchedMediaItems.filter(
+        (item) => item !== id
+      );
+    } else {
+      this.watchedMediaItems.push(id);
+
+      localStorage.setItem(
+        'watchedMediaItems',
+        JSON.stringify(this.watchedMediaItems)
+      );
+    }
+  }
+
+  processMediaItems() {
+    this.mediaItems.forEach((mediaItem) => {
+      // If mediaitem is already watched, set as watched visually
+      if (this.watchedMediaItems.includes(mediaItem.id)) {
+        mediaItem.isWatched = true;
+      } else {
+        mediaItem.isWatched = false;
+      }
+
+      if (
+        localStorage.getItem(mediaItem.id + '_watchedEpisodeItems') !== null
+      ) {
+        var watchedEpisodesFromStorage = JSON.parse(
+          localStorage.getItem(mediaItem.id + '_watchedEpisodeItems')
+        );
+
+        if (
+          watchedEpisodesFromStorage.length ==
+          //if the mediatitem with the id without the first 5 signs (just id stays) is identical
+          mediaItem.id.substr(5, mediaItem.id.length) 
+        ) {
+          //mark item
+          this.markItem(mediaItem.id, 0); 
+        }
+      }
+    });
+  }
+
+  // Open DetailsPage as 'modal'. Determining MediaItem-ID by current index.
+  async showDetails(id) {
+    const modal = await this.modalController.create({
+      component: DetailsPage,
+      componentProps: {
+        mediaItem: this.mediaItems.find((mediaItem) => mediaItem.id === id), 
+      },
+    });
+
+    // Processing changes on 'modal'-close.
+    modal.onDidDismiss().then((data) => {
+      this.startDataProcessing(); 
+    });
+
+    return await modal.present();
   }
 }
-

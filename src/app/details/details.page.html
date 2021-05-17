@@ -1,67 +1,114 @@
 <ion-content>
   <div class="details">
-    <img class="icon" [src]="mediaItem.cover_url"/>
+    <img class="icon" [src]="mediaItem.cover_url" />
     <h1>{{mediaItem.title}}</h1>
 
+    <ion-chip>
+      <ion-icon [name]="mediaTypeIcon" color="primary"></ion-icon>
+      <ion-label color="primary"> {{ mediaType }} </ion-label>
+    </ion-chip>
 
-  <ion-card> 
-    <ion-card-header>
-      <ion-card-subtitle>
-        {{'DETAILS.directed' | translate}}
-      </ion-card-subtitle>
-    </ion-card-header>
+    <ion-chip>
+      <ion-icon name="time-outline" color="primary"></ion-icon>
+      <ion-label color="primary">Phase {{ mediaItem.phase }}</ion-label>
+    </ion-chip>
 
-      <ion-card-content>
-        {{mediaItem.directed_by}}
-      </ion-card-content>
+    <ion-chip
+      *ngIf="mediaItem.post_credit_scenes !== 0"
+      (click)="showPostCreditSceneCount()"
+    >
+      <ion-icon name="alert-outline" color="primary"></ion-icon>
+      <ion-label color="primary">
+        {{'DETAILS.post_credit_scenes' | translate}}
+      </ion-label>
+    </ion-chip>
 
+    <ion-card>
       <ion-card-header>
-        <ion-card-subtitle *ngIf="mediaItem.episodes_to_watch !== '0'; else durationTitle">
+        <ion-card-subtitle>
+          {{'DETAILS.directed' | translate}}
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content> {{mediaItem.directed_by}} </ion-card-content>
+
+      <!-- Displays whether a Episodes or Duration-Header-->
+      <ion-card-header>
+        <ion-card-subtitle
+          *ngIf="mediaItem.episodes_to_watch !== '0'; else durationTitle"
+        >
           {{'DETAILS.episodes' | translate}}
         </ion-card-subtitle>
         <ng-template #durationTitle>
           {{'DETAILS.duration' | translate}}
         </ng-template>
       </ion-card-header>
-
+      <!-- Displays whether a Episode-Info or Duration-Info -->
       <ion-card-content>
-
-          <p *ngIf="mediaItem.episodes_to_watch !== '0'; else durationValue">
-            {{mediaItem.episodes_to_watch}}
-          </p>
-          <ng-template #durationValue>
-           {{mediaItem.duration}} Minutes
-         </ng-template>
-         </ion-card-content>
-         <ion-card-content>
-
-           <b>
-             {{'DETAILS.release' | translate}}
-            </b>
-             {{mediaItem.release_date}} |  
-             <b>
-             {{'DETAILS.year_it_played' | translate}}
-            </b>
-            {{mediaItem.year_it_played}}
-          </ion-card-content>
-         
-        
-</ion-card>
- <ion-card>
-
-
-
-
-      
-   
-      <ion-card-content>
-        {{mediaItem.overview}}
+        <p *ngIf="mediaItem.episodes_to_watch !== '0'; else durationValue">
+          {{mediaItem.episodes_to_watch}}
+        </p>
+        <ng-template #durationValue>
+          {{mediaItem.duration}} {{'DETAILS.minutes' | translate}}
+        </ng-template>
       </ion-card-content>
-      </ion-card>
-   
+      
+      <ion-card-content>
+        <b> {{'DETAILS.release' | translate}} </b>
+        <!-- Fake-Header -->
+        {{mediaItem.release_date}} <br />
+        <!-- Content -->
+        <b> {{'DETAILS.year_it_played' | translate}} </b
+        ><!-- Fake-Header -->
+        {{mediaItem.release_date}} <br />
+        <!-- Content -->
+        {{mediaItem.year_it_played}}
+      </ion-card-content>
+    </ion-card>
 
+    <ion-card>
+      <ion-card-content> {{mediaItem.overview}} </ion-card-content>
+    </ion-card>
 
-        <iframe *ngIf="isYouTube" id="trailerBox" height="315" [src]="videoURL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <ion-card *ngIf="mediaItem.episodes_to_watch !== '0'">
+      <ion-card-content>
+        <ion-list>
+          <ion-item
+            *ngFor="let episode of mediaItem.episodes; index as i ;"
+            (click)="markEpisodes(episode.id, i)"
+          >
+            <!-- If there are any Episodes; show these in a checkable list. -->
+            <ion-label>{{episode.title}}</ion-label>
+            <ion-checkbox
+              slot="start"
+              [(ngModel)]="episode.isWatched"
+            ></ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
 
+    <iframe
+      id="trailerBox"
+      height="315"
+      [src]="videoURL"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+
+    <br />
+    <br />
   </div>
+
+  <ion-fab
+    horizontal="start"
+    vertical="bottom"
+    slot="fixed"
+    (click)="closePopup()"
+  >
+    <ion-fab-button color="primary">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

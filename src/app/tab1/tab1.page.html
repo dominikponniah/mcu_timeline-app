@@ -1,34 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      {{'TIMELINE.title' | translate}}
-    </ion-title>
+    <!-- Title of the page will be shown in chosen language-->
+    <ion-title> {{'TIMELINE.title' | translate}} </ion-title> 
+  </ion-toolbar>
+  <ion-toolbar>
+    <!-- search bar; Timeline.search = translationservice-->
+    <ion-searchbar showCancelButton="focus" placeholder="{{'TIMELINE.search' | translate}}" [(ngModel)]="filterItem"></ion-searchbar> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-header collapse="condense">
-  <ion-toolbar>
-    <ion-title size="large">
-      {{'TIMELINE.title' | translate}}
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<br/><br/>
 
-<ion-list>
-  <ion-item *ngFor="let mediaItem of mediaItems; index as i ;">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <!-- second title; visible when scrolling down on the iphone -->
+      <ion-title size="large"> {{'TIMELINE.title' | translate}} </ion-title> 
+    </ion-toolbar>
+  </ion-header>
 
-  <ion-avatar slot="start"> 
-    <img [src]="mediaItem.cover_url"/>
-  </ion-avatar>
 
-    <ion-label (click)="showDetails(i)">
-      <h2>{{mediaItem.title}}</h2>
-     <p>{{mediaItem.overview}}</p>
-  </ion-label>
-  </ion-item>
-</ion-list>
+  <ion-list>
+    <ion-item *ngFor="let mediaItem of mediaItems | filter:filterItem; index as i ;">
+      <!-- all about the image and the click function to make it checked-->
+      <ion-avatar slot="start" *ngIf="mediaItem.episodes_to_watch == '0'" (click)="markItem(mediaItem.id, i)"> 
+        <img [src]="mediaItem.cover_url" />
+      </ion-avatar>
 
+      <!-- same thing for the series since there wouldn't be an image otherwise-->
+      <ion-avatar slot="start" *ngIf="mediaItem.episodes_to_watch !== '0'"> 
+        <img [src]="mediaItem.cover_url" />
+      </ion-avatar>
+ 
+      <!--show detail page when click on it; change colour-->
+      <ion-label (click)="showDetails(mediaItem.id)" [color]="mediaItem.isWatched ? 'medium' : 'light'"> 
+        <!-- show in the list the title and the beginning of the overview-->
+        <h2>{{mediaItem.title}}</h2> 
+        <p>{{mediaItem.overview}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

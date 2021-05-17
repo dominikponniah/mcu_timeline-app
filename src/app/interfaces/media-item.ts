@@ -1,3 +1,4 @@
+import { EpisodeItem } from './episode-item';
 export interface MediaItem {
   id: string;
   title: string;
@@ -12,5 +13,6 @@ export interface MediaItem {
   post_credit_scenes: number;
   episodes_to_watch: string;
   year_it_played: string;
-  episodes?: any;
+  episodes?: EpisodeItem[];
+  isWatched?: boolean;
 }

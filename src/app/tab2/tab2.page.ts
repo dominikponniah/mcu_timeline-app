@@ -6,10 +6,9 @@ import { ActionSheetController } from '@ionic/angular';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements AfterViewInit {
-
   currentLanguage;
 
   constructor(
@@ -19,52 +18,53 @@ export class Tab2Page implements AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
+    //get current language
     this.currentLanguage = this.languageService.getCurrentLanguage();
   }
 
   async changeLanguage() {
+    var buttons = [];
 
-    var buttons = [] ;
-
-    this.languageService.getLanguages().forEach(language => {
+    this.languageService.getLanguages().forEach((language) => {
       buttons.push({
         text: language.text,
         handler: () => {
+          //change current language value, e.g from fr > de
           this.languageService.changeLanguage(language.value);
           this.currentLanguage = language.value;
-        }
-      })
+          location.reload();
+        },
+      });
     });
 
-    buttons.push( {
+    //close language change window
+    buttons.push({
       text: this.translateService.instant('EXTRAS.PICKER.cancel'),
       icon: 'close',
       role: 'cancel',
       handler: () => {
-        console.log('Cancel clicked');
-      }
+        // Do nothing
+      },
     });
 
+    //The title of the language change window
     const actionSheet = await this.actionSheetController.create({
       header: this.translateService.instant('EXTRAS.PICKER.title'),
       cssClass: 'my-custom-class',
-      buttons: buttons
+      buttons: buttons,
     });
 
     await actionSheet.present();
-
-    const { role } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
+  // Method to open Links in Browser or Apps
   openURL(url) {
     window.open(url);
   }
 
+  // Delete full storage
   clearStorage() {
     localStorage.clear();
     window.location.reload();
   }
-
-
 }

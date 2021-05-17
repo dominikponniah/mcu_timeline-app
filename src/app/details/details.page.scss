@@ -1,17 +1,22 @@
 .details {
-    text-align: center;
-    margin-top: 60px;
-        h1 {
-            font-size: 25px;
-        }
-        #trailerBox {
-            width: 93%;
-            border-radius: 7px;
-        }
-    ion-card-header , ion-card-subtitle{
-        font-weight: bold;
-    }
-.icon {
-            width: 55vw;
-        }
-    }
+  text-align: center;
+  margin-top: 60px;
+
+  h1 {
+    font-size: 25px;
+  }
+
+  #trailerBox {
+    width: 97%;
+    border-radius: 7px;
+  }
+
+  ion-card-header,
+  ion-card-subtitle {
+    font-weight: bold;
+  }
+  
+  .icon {
+    width: 70vw;
+  }
+}

@@ -1,17 +1,26 @@
 {
     "TIMELINE": {
-        "title": "Chronologie"
+        "title": "Chronologie",
+        "search": "Zum Suchen eingeben..."
     },
     "DETAILS": {
         "directed": "REGIE",
         "duration": "DAUER",
+        "minutes": "Minuten",
         "episodes": "EPISODEN",
         "release": "VERÖFFENTLICHUNG",
-        "year_it_played": "SPIELT"
+        "year_it_played": "SPIELT",
+        "videocam": "Film",
+        "serie": "Serie",
+        "post_credit_scenes": "Nachspannszenen",
+        "post_credit_scenes_toast_many": " Szenen im Abspann", 
+        "post_credit_scenes_toast_single": " Szene im Abspann"
+        
     },
     "EXTRAS": {
         "title": "Mehr",
         "language": "Sprache",
+        "develop": "Entwickelt von Michelle Gfeller und Svenia Ponniah",
         "PICKER": {
             "title": "Sprache ändern",
             "cancel": "Abbruch"
