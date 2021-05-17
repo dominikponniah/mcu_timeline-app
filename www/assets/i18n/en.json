@@ -1,0 +1,40 @@
+{
+     "TIMELINE": {
+        "title": "Timeline",
+        "search": "Type to search ..."
+
+    },
+    "DETAILS": {
+        "directed": "DIRECTED BY",
+        "duration": "DURATION",
+        "minutes": "Minutes",
+        "episodes": "WHAT TO WATCH",
+        "release": "RELEASED",
+        "year_it_played": "PLAYS",
+        "videocam": "Movie",
+        "serie": "Series",
+        "post_credit_scenes": "Post credit scenes",
+        "post_credit_scenes_toast_many": " Post credit scenes", 
+        "post_credit_scenes_toast_single": " Post credit scene"
+    },
+    "EXTRAS": {
+        "title": "Extras",
+        "language": "Language",
+        "develop": "Developed by Michelle Gfeller and Svenia Ponniah",
+        "PICKER": {
+            "title": "Select Language",
+            "cancel": "Cancel"
+        },
+        "LINKS": {
+            "disneyplus": "Marvel on Disney+",
+            "instagram": "Marvel on Instagram"
+        }, 
+        "ACTION": {
+            "delete": "Delete my data"
+        }
+    },
+    "TABS": {
+        "timeline": "Timeline",
+        "extras": "Extras"
+    }
+}

@@ -1,0 +1,40 @@
+{
+   "TIMELINE": {
+    "title": "Chronologie",
+    "search": "Type de recherche..."
+    },
+    "DETAILS": {
+        "directed": "RÉALISATION",
+        "duration": "DURÉE",
+        "minutes": "Minutes",
+        "episodes": "ÉPISODES",
+        "release": "PUBLICATION",
+        "year_it_played": "JOUE",
+        "videocam": "Film",
+        "serie": "Série", 
+        "post_credit_scenes": "Scènes post-crédit",
+        "post_credit_scenes_toast_many": " Scènes post-crédit", 
+        "post_credit_scenes_toast_single": " Scène post-crédit"
+    },
+    "EXTRAS": {
+        "title": "Plus",
+        "language": "Langue",
+        "develop": "Développé par Michelle Gfeller et Svenia Ponniah",
+        "PICKER": {
+            "title": "Choisissez votre langue",
+            "cancel": "Annuler"
+        },
+        "LINKS": {
+            "disneyplus": "Marvel sur Disney+",
+            "instagram": "Marvel sur Instagram"
+        }, 
+        "ACTION": {
+            "delete": "Efface mes données  "
+        }
+
+    },
+    "TABS": {
+        "timeline": "Chronologie",
+        "extras": "Plus"
+    }
+}
