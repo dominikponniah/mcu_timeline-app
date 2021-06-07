@@ -1,5 +1,7 @@
 {
-  "name": "MCU Timeline",
-  "integrations": {},
+  "name": "mcutimeline",
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

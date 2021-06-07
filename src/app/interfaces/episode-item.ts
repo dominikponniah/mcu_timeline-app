@@ -1,5 +1,6 @@
 export interface EpisodeItem {
-  id: string;
-  title: string;
-  isWatched?: boolean;
-}
+    id: string;
+    title: string;
+    isWatched?: boolean;
+  }
+  

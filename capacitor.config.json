@@ -1,0 +1,6 @@
+{
+	"appId": "ch.dominikponniah.mcutimeline",
+	"appName": "MCU Timeline",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

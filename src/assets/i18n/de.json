@@ -20,7 +20,7 @@
     "EXTRAS": {
         "title": "Mehr",
         "language": "Sprache",
-        "develop": "Entwickelt von Michelle Gfeller und Svenia Ponniah",
+        "develop": "Entwickelt von Michelle Gfeller und Svenia Ponniah.<br>Portiert von Dominik Ponniah.",
         "PICKER": {
             "title": "Sprache ändern",
             "cancel": "Abbruch"
