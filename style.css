@@ -1,0 +1,7 @@
+
+    @font-face {
+    font-family: 'Marvel Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Marvel Regular'), url('Font.woff') format('woff');
+    }

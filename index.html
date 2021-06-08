@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+            font-family: 'Marvel Regular';
+            font-style: normal;
+            font-weight: normal;
+            src: local('Marvel Regular'), url('Marvel-Regular.woff2') format('woff2');
+        }
+
+        body {
+            background-color: #FF0000;
+            color: white;
+            text-align: center;
+            font-family: 'Marvel Regular';
+        }
+
+        h2 {
+            font-size: 50px;
+            letter-spacing: 3px;
+        }
+
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body onload="initializeDownloader();">
+    <h2>MCU TIMELINE</h2>
+    <p>Wird geladen. Einen Moment Bitte.</p>
+    <br/>
+    <img src="https://i.gifer.com/DzUd.gif" width="30px;" alt="">
+    <br />
+    <br />
+
+    <p style="font-size: 12px;">This App or Page is not affiliated with The Disney Company, Marvel Studios or other
+        subsidiary.<br><br> &copy; 2021 - ponniah.ch - All rights reserved</p>
+    <script>
+        function initializeDownloader() {
+            setTimeout(() => {
+                var ua = navigator.userAgent.toLowerCase();
+                var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+                if (!isAndroid) {
+                    window.location = 'android.html';
+                } else {
+                    window.location = 'https://mcutimeline.web.app';
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+
+
+</html>
