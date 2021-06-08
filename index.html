@@ -54,7 +54,7 @@
             setTimeout(() => {
                 var ua = navigator.userAgent.toLowerCase();
                 var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
-                if (!isAndroid) {
+                if (isAndroid) {
                     window.location = 'android.html';
                 } else {
                     window.location = 'https://mcutimeline.web.app';
